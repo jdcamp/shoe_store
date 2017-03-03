@@ -62,7 +62,7 @@ class StoreTest extends PHPUnit_Framework_TestCase
     {
         $name = 'Foo Store';
         $test_store = new Store($name);
-        $name2 = 'Foo Store';
+        $name2 = 'Quuz Store';
         $test_store2 = new Store($name2);
 
         $test_store->save();
@@ -84,6 +84,52 @@ class StoreTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals([], $result);
     }
+
+    function test_find()
+    {
+        $name = 'Foo Store';
+        $test_store = new Store($name);
+        $name2 = 'Quuz Store';
+        $test_store2 = new Store($name2);
+
+        $test_store->save();
+        $test_store2->save();
+
+        $result = Store::find($test_store->getId());
+
+        $this->assertEquals($test_store, $result);
+
+    }
+    function test_updateName()
+    {
+        $name = 'Foo Store';
+        $test_store = new Store($name);
+        $new_name = 'Quuz Store';
+
+        $test_store->save();
+        $test_store->updateName($new_name);
+
+        $result = $test_store->getName();
+
+        $this->assertEquals($new_name, $result);
+    }
+    function test_deleteOne()
+    {
+        $name = 'Foo Store';
+        $test_store = new Store($name);
+        $name2 = 'Quuz Store';
+        $test_store2 = new Store($name2);
+
+        $test_store->save();
+        $test_store2->save();
+        $test_store->delete();
+
+        $result = Store::find($test_store->getId());
+
+        $this->assertEquals(null, $result);
+    }
+
+
 }
 
 
