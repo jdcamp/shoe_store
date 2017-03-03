@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <meta charset="utf-8">
         <title>Shoes</title>
     </head>
     <body>
+        <div class="container">
+
         {% block body %}
             <h2>Shoe Store</h2>
             <a href="/view_stores"><button type="button" name="button1">View Stores</button></a><br>
             <a href="/view_brands"><button type="button" name="button2">View Brands</button></a>
         {% endblock %}
+    </div>
     </body>
 </html>

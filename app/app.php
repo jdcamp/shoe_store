@@ -26,6 +26,20 @@ $app->get("/view_stores", function() use ($app) {
     $stores = Store::getAll();
     return $app['twig']->render('stores.html.twig', array('stores' => $stores));
 });
+$app->get("/edit_store/{id}", function($id) use ($app) {
+    $store = Store::find($id);
+    return $app['twig']->render('edit_store.html.twig', array('store' => $store));
+});
+$app->patch("/edit_store_name/{id}", function($id) use ($app) {
+    $store = Store::find($id);
+    $store->updateName($_POST['new_name']);
+    return $app->redirect('/edit_store/' . $id);
+});
+$app->delete("/delete_store/{id}", function($id) use ($app) {
+    $store = Store::find($id);
+    $store->delete();
+    return $app->redirect('/view_stores');
+});
 $app->post("/add_store", function() use ($app) {
     $store = new Store($_POST['name']);
     $store->save();
