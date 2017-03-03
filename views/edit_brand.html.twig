@@ -13,6 +13,15 @@
     <button class="btn btn-info" type="submit">update</button>
 </form>
 
+<form action="/add_store_to_brand/{{brand.getId}}" method="post">
+    <select name="store">
+        {% for store in stores %}
+        <option value="{{store.getId}}">{{store.getName}}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" name="button" class="btn">Add store to brand</button>
+</form>
+
 
 
 {% endblock %}

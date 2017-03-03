@@ -87,11 +87,11 @@ class Brand
     function getStores()
     {
         $returned_stores = $GLOBALS['DB']->query(
-            "SELECT brands.*
-            FROM stores
-            JOIN brands_stores ON (brands_stores.store_id = stores.id)
-            JOIN brands ON (brands.id = brands_stores.brand_id)
-            WHERE brand.id = {$this->getId()};"
+            "SELECT stores.*
+            FROM brands
+            JOIN brands_stores ON (brands_stores.brand_id = brands.id)
+            JOIN stores ON (stores.id = brands_stores.store_id)
+            WHERE brands.id = {$this->getId()};"
         );
         $stores = array();
         if ($returned_stores == null) {
