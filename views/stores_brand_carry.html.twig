@@ -1,0 +1,14 @@
+{% extends 'index.html.twig' %}
+
+{% block body %}
+
+<h1>{{store.getName}} Brands in Store</h1>
+{% if brand != null %}
+{% for brand in brands %}
+<h5>{{brand.getName}}</h5>    
+{% endfor %}
+{% endif %}
+
+
+
+{% endblock %}

@@ -33,7 +33,8 @@ $app->get("/view_brands", function() use ($app) {
 });
 $app->get("/edit_store/{id}", function($id) use ($app) {
     $store = Store::find($id);
-    return $app['twig']->render('edit_store.html.twig', array('store' => $store));
+    $brands_not_carrying = $store->getBrandsNotCarrying;
+    return $app['twig']->render('edit_store.html.twig', array('store' => $store, 'brands' => $brands_not_carrying));
 });
 $app->get("/edit_brand/{id}", function($id) use ($app) {
     $brand = Brand::find($id);
@@ -68,6 +69,11 @@ $app->post("/add_brand", function() use ($app) {
     $brand = new Brand($_POST['name']);
     $brand->save();
     return $app->redirect('/view_brands');
+});
+$app->post("/add_brand_to_store/{id}", function($id) use ($app) {
+    $store = Store::find($id);
+    $store->addBrand($_POST['brand']);
+    return $app->redirect('/edit_store/' . $id);
 });
 return $app;
 ?>

@@ -70,7 +70,51 @@
     		}
     		return null;
     	}
+        function addBrand($brand_id)
+        {
+            $store_id = $this->getId();
+            $GLOBALS['DB']->exec("INSERT INTO brands_stores (brand_id, store_id) VALUES ({$brand_id}, {$store_id});");
+        }
 
+        function getBrands()
+        {
+            $returned_brands = $GLOBALS['DB']->query(
+                "SELECT brands.*
+                FROM stores
+                JOIN brands_stores ON (brands_stores.store_id = stores.id)
+                JOIN brands ON (brands.id = brands_stores.brand_id)
+                WHERE stores.id = {$this->getId()};"
+            );
+            $brands = array();
+            if ($returned_brands == null) {
+                return null;
+            }
+            foreach ($returned_brands as $brand) {
+                $id = $brand['id'];
+                $name = $brand['name'];
+                $new_brand = new Brand($name, $id);
+                array_push($brands, $new_brand);
+            }
+            return $brands;
+        }
+        function getBrandsNotCarrying()
+        {
+            $all_brands = Brand::getAll();
+            $current_brands = $this->getBrands();
+            $diff_array = [];
+            foreach ($all_brands as $brand) {
+                $counter = 0;
+                foreach ($current_brands as $current_brand) {
+                    if ($current_brand->getId() == $brand->getId()){
+                        $counter = 1;
+                    }
+                }
+                if ($counter == 0) {
+                    array_push($diff_array, $brand);
+                }
+            }
+            return $diff_array;
+        }
 
     }
  ?>
