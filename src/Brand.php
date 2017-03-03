@@ -72,6 +72,57 @@ class Brand
         }
         return null;
     }
+    function addStore($store_id)
+    {
+        $brand_id = $this->getId();
+        $GLOBALS['DB']->exec("INSERT INTO brands_stores (brand_id, store_id) VALUES ({$brand_id}, {$store_id});");
+    }
+
+    function removeStore($store_id)
+    {
+        $brand_id = $this->getId();
+        $GLOBALS['DB']->exec("DELETE FROM brands_stores WHERE brand_id = {$brand_id} and store_id = {$store_id};");
+    }
+
+    function getStores()
+    {
+        $returned_stores = $GLOBALS['DB']->query(
+            "SELECT brands.*
+            FROM stores
+            JOIN brands_stores ON (brands_stores.store_id = stores.id)
+            JOIN brands ON (brands.id = brands_stores.brand_id)
+            WHERE brand.id = {$this->getId()};"
+        );
+        $stores = array();
+        if ($returned_stores == null) {
+            return null;
+        }
+        foreach ($returned_stores as $store) {
+            $id = $store['id'];
+            $name = $store['name'];
+            $new_store = new Store($name, $id);
+            array_push($stores, $new_store);
+        }
+        return $stores;
+    }
+    function getStoresNotCarryingBrand()
+    {
+        $all_stores = Store::getAll();
+        $current_stores = $this->getStores();
+        $diff_array = [];
+        foreach ($all_stores as $store) {
+            $counter = 0;
+            foreach ($current_stores as $current_store) {
+                if ($current_store->getId() == $store->getId()){
+                    $counter = 1;
+                }
+            }
+            if ($counter == 0) {
+                array_push($diff_array, $store);
+            }
+        }
+        return $diff_array;
+    }
 
 
 }

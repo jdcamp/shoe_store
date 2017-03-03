@@ -3,6 +3,7 @@
 {% block body %}
 
 <h1>{{store.getName}} Brands in Store</h1>
+<a href="/view_stores">Back</a>
 {% if brands != null %}
 {% for brand in brands %}
 <h5>{{brand.getName}}</h5>
