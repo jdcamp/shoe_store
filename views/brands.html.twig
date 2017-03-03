@@ -1,0 +1,36 @@
+{% extends 'index.html.twig' %}
+
+{% block body %}
+<h1>Brands</h1>
+<a href="/"><button type="button" name="button" class="btn">Home</button></a>
+<form action="/add_brand" method="post">
+    <label for="name">Enter brand Name</label>
+    <input required type="text" name="name" value="">
+
+    <button type="submit" name="button" class="btn">Add brand</button>
+</form>
+{% if brands != null %}
+    {% for brand in brands %}
+        <h5>{{brand.getName}}</h5>
+        <div class="row">
+            <div class="col-xs-1">
+                <a href="/edit_brand/{{brand.getid}}"><button type="button" class="btn" name="button">Edit</button></a>
+            </div>
+            <div class="col-xs-1">
+                   <form action="/delete_brand/{{ brand.getId }}" method="post">
+                       <input name="_method" type="hidden" value="delete">
+                       <button class="btn btn-danger" type="submit">
+                           <span class="glyphicon glyphicon-trash"></span>
+                           Delete
+                       </button>
+                   </form>
+               </div>
+
+        </div>
+
+
+    {% endfor %}
+{% else %}
+    <p>There are no brands</p>
+{% endif %}
+{% endblock %}
