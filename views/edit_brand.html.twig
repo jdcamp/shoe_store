@@ -22,6 +22,15 @@
     <button type="submit" name="button" class="btn">Add store to brand</button>
 </form>
 
+<form action="/remove_store_from_brand/{{brand.getId}}" method="post">
+    <select name="store">
+        {% for store in stores_with_brand %}
+        <option value="{{store.getId}}">{{store.getName}}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" name="button" class="btn">Remove Store from Brand</button>
+</form>
+
 
 
 {% endblock %}

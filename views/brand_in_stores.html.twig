@@ -1,0 +1,15 @@
+{% extends 'index.html.twig' %}
+
+{% block body %}
+
+<h1>Stores that carry {{brand.getName}}</h1>
+<a href="/view_brands">Back</a>
+{% if stores != null %}
+{% for store in stores %}
+<h5>{{store.getName}}</h5>
+{% endfor %}
+{% endif %}
+
+
+
+{% endblock %}

@@ -10,8 +10,16 @@
 
         {% block body %}
             <h2>Shoe Store</h2>
-            <a href="/view_stores"><button type="button" name="button1">View Stores</button></a><br>
-            <a href="/view_brands"><button type="button" name="button2">View Brands</button></a>
+            <a href="/view_stores"><button type="button" name="button1" class="btn">View Stores</button></a><br>
+            <a href="/view_brands"><button type="button" name="button2" class="btn">View Brands</button></a>
+            <form class="" action="/delete_stores" method="post">
+                <input name="_method" type="hidden" value="delete">
+                <button class="btn btn-danger" type="submit" name="button">DELETE ALL STORES</button>
+            </form>
+            <form class="" action="/delete_brands" method="post">
+                <input name="_method" type="hidden" value="delete">
+                <button class="btn btn-danger" type="submit" name="button">DELETE ALL BRANDS</button>
+            </form>
         {% endblock %}
     </div>
     </body>

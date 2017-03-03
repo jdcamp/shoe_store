@@ -23,12 +23,12 @@
     <button type="submit" name="button" class="btn">Add brand to store</button>
 </form>
 
-<form action="/remove_brand_to_store/{{store.getId}}" method="post">
+<form action="/remove_brand_from_store/{{store.getId}}" method="post">
     <select name="brand">
         {% for brand in carrying_brands %}
         <option value="{{brand.getId}}">{{brand.getName}}</option>
         {% endfor %}
     </select>
-    <button type="submit" name="button" class="btn">Remove brand to store</button>
+    <button type="submit" name="button" class="btn">Remove brand from store</button>
 </form>
 {% endblock %}
