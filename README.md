@@ -29,7 +29,7 @@ _After running "/Applications/MAMP/Library/bin/mysql --host=localhost -uroot -pr
 * USE shoe_store;
 * CREATE TABLE stores (id serial PRIMARY KEY, name VARCHAR(255));
 * CREATE TABLE brands (id serial PRIMARY KEY, name VARCHAR(255));
-* CREATE TABLE brands_stores (id serial PRIMARY KEY, brand_id BIGINT, store_id BIGINT;
+* CREATE TABLE brands_stores (id serial PRIMARY KEY, brand_id BIGINT, store_id BIGINT);
 
 To create the shoe_store_test Database go to localhost:8888 and click on shoe_store in the side menu. Click on the tab Operations near the top of the webpage. In "Copy database to" panel, change shoe_store to shoe_store_test in the text field and select structure only in the menu while keeping the default selections. Click go in the panel_
 
