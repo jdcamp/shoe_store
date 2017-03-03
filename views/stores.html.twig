@@ -1,0 +1,18 @@
+{% extends 'index.html.twig' %}
+
+{% block body %}
+<h1>Stores</h1>
+<form action="/add_store" method="post">
+    <label for="name">Enter Store Name</label>
+    <input required type="text" name="name" value="">
+
+    <button type="submit" name="button">Add Store</button>
+</form>
+{% if stores != null %}
+    {% for store in stores %}
+        <h5>{{store.getName}}</h5>
+    {% endfor %}
+{% else %}
+    <p>There are no stores</p>
+{% endif %}
+{% endblock %}
