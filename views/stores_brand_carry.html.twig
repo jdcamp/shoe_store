@@ -3,9 +3,9 @@
 {% block body %}
 
 <h1>{{store.getName}} Brands in Store</h1>
-{% if brand != null %}
+{% if brands != null %}
 {% for brand in brands %}
-<h5>{{brand.getName}}</h5>    
+<h5>{{brand.getName}}</h5>
 {% endfor %}
 {% endif %}
 

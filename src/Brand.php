@@ -45,6 +45,7 @@ class Brand
     static function deleteAll()
     {
         $GLOBALS['DB']->exec("DELETE FROM brands;");
+        $GLOBALS['DB']->exec("DELETE FROM brands_stores;");
     }
     function updateName($new_name)
     {
@@ -55,6 +56,7 @@ class Brand
     function delete()
     {
         $GLOBALS['DB']->exec("DELETE FROM brands WHERE id = {$this->getId() };");
+        $GLOBALS['DB']->exec("DELETE FROM brands_stores WHERE brand_id = {$this->getId() };");
     }
 
     static function find($search_id)

@@ -33,12 +33,18 @@ $app->get("/view_brands", function() use ($app) {
 });
 $app->get("/edit_store/{id}", function($id) use ($app) {
     $store = Store::find($id);
-    $brands_not_carrying = $store->getBrandsNotCarrying;
-    return $app['twig']->render('edit_store.html.twig', array('store' => $store, 'brands' => $brands_not_carrying));
+    $brands_not_carrying = $store->getBrandsNotCarrying();
+    $brands_carrying = $store->getBrands();
+    return $app['twig']->render('edit_store.html.twig', array('store' => $store, 'brands' => $brands_not_carrying, 'carrying_brands' => $brands_carrying));
 });
 $app->get("/edit_brand/{id}", function($id) use ($app) {
     $brand = Brand::find($id);
     return $app['twig']->render('edit_brand.html.twig', array('brand' => $brand));
+});
+$app->get("/view_stores_brands/{id}", function($id) use ($app) {
+    $store = Store::find($id);
+    $brands = $store->getBrands();
+    return $app['twig']->render('stores_brand_carry.html.twig', array('brands' => $brands, 'store'=> $store));
 });
 $app->patch("/edit_store_name/{id}", function($id) use ($app) {
     $store = Store::find($id);
@@ -59,6 +65,11 @@ $app->delete("/delete_brand/{id}", function($id) use ($app) {
     $brand = Brand::find($id);
     $brand->delete();
     return $app->redirect('/view_brands');
+});
+$app->post("/remove_brand_to_store/{id}", function($id) use ($app) {
+    $store = Store::find($id);
+    $store->removeBrand($_POST['brand']);
+    return $app->redirect('/edit_store/'.$id);
 });
 $app->post("/add_store", function() use ($app) {
     $store = new Store($_POST['name']);

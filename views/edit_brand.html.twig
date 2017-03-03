@@ -3,6 +3,7 @@
 {% block body %}
 
 <h1>Edit {{brand.getName}}</h1>
+<a href="/view_brands">Back</a>
 <form action="/edit_brand_name/{{brand.getId}}" method="post">
     <input name="_method" type="hidden" value="patch">
 
